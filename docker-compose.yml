@@ -1,0 +1,10 @@
+services:
+  app:
+    build: .
+    image: devops-lab:1.0
+    container_name: devops-compose
+    ports:
+      - "8082:8080"
+    restart: unless-stopped
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
