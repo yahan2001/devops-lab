@@ -44,3 +44,32 @@ This selects an Ubuntu 24.04-based runtime image.
 The incident was caused by vulnerable software inherited from
 the Docker base image rather than the Java application code.
 The updated base image passed the local security policy check.
+
+## 8. Observability and Debugging Evidence
+
+### Logs
+Spring Boot application logs were collected from Docker Compose.
+Evidence: evidence/app-logs.txt
+
+### Metrics
+Prometheus metrics are available at /actuator/prometheus.
+Evidence: evidence/metrics.txt
+
+### Distributed Tracing
+Micrometer Tracing exports request traces to Zipkin.
+
+Verified requests:
+- GET /actuator/health
+- GET /tasks
+- POST /tasks
+
+The Zipkin dashboard displays trace and span information,
+including request processing duration.
+
+### Debugging Method
+1. Identify the failing stage in GitHub Actions.
+2. Inspect the relevant error logs and Trivy findings.
+3. Identify the vulnerable binary and its origin.
+4. Replace the vulnerable Docker base image.
+5. Rebuild, retest and rescan the application.
+6. Verify logs, metrics and traces.
